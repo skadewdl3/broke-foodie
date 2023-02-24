@@ -15,6 +15,9 @@ const db = getFirestore();
 const canteens = db.collection('canteens');
 app.use(cors());
 
+app.get('/', () => {
+  res.json({message: 'API working'})
+})
 
 app.get('/search-canteens/:search', async (req, res) => {
   const search = req.params.search;
