@@ -11,12 +11,23 @@ import './style.css'
 const store = createStore({
   state () {
     return {
-      searchText: ''
+      searchText: '',
+      canteens: [],
+      searching: false
     }
   },
   mutations: {
     updateSearchText (state, text) {
       state.searchText = text
+    },
+    
+    updateCanteens (state, c) {
+      state.canteens = c
+    },
+
+    
+    setSearching (state, s) {
+      state.searching = s
     }
   }
 })
