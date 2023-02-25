@@ -60,7 +60,7 @@ const goToMaps = link => {
             class="canteen-menu-item-content px-4 py-2 flex items-center justify-between"
           >
             <span class="name">{{ name }}</span
-            ><span class="price">{{ price }}</span>
+            ><span class="price">{{ parseInt(price) == 0 ? '' : price }}</span>
           </div>
           <div
             v-if="index < Object.entries(canteen.menu).length - 1"
