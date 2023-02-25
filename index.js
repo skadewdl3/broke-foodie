@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { initializeApp, cert } = require('firebase-admin/app');
-const { getFirestore, getDocs} = require('firebase-admin/firestore');
+const { getFirestore } = require('firebase-admin/firestore');
 const config = require('./credentials.json')
 const { closestMatch } = require('./logic');
 
