@@ -15,11 +15,28 @@ const db = getFirestore();
 const canteens = db.collection('canteens');
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.json({message: 'API working'})
-})
+const allowCors = fn => async (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  // another common pattern
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+    return
+  }
+  return await fn(req, res)
+}
 
-app.get('/search-canteens/:search', async (req, res) => {
+app.get('/', allowCors((req, res) => {
+  res.json({message: 'API working'})
+}))
+
+app.get('/search-canteens/:search', allowCors(async (req, res) => {
   const search = req.params.search;
   const docs = (await canteens.get()).docs
 
@@ -36,7 +53,7 @@ res.setHeader('Access-Control-Allow-Credentials', true)
   res.json({
     searchResults
   })
-})
+}))
 
 app.get('/get-canteen/:id', async (req, res) => {
   const id = req.params.id;
