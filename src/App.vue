@@ -1,9 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const blurred = computed(() => route.name != 'Home')
+
+watchEffect(() => {
+  console.log(blurred.value)
+}, blurred)
 </script>
 
 <template>
@@ -12,13 +16,17 @@ const blurred = computed(() => route.name != 'Home')
   </router-view>
   <transition name="fade" mode="out-in">
     <div
-      class="search-blur absolute top-0 left-0 w-screen h-screen"
+      class="blur absolute top-0 left-0 w-screen h-screen"
       v-if="blurred"
     ></div>
   </transition>
 </template>
 
 <style lang="stylus">
+.blur
+  z-index 1
+  backdrop-filter blur(0.1rem)
+
 body
   display grid
   place-items center
