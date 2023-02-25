@@ -12,7 +12,7 @@ export default defineConfig({
     StringReplace([
             {
                 search: '%BASE_URL%',
-                replace: devEnv ? 'http://localhost:5000' : 'https://crossorigin.me/https://broke-foodie-server.vercel.app',
+                replace: devEnv ? 'http://localhost:5000' : 'https://broke-foodie-server.vercel.app',
 
             },
         ])
