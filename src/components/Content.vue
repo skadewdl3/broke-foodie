@@ -12,12 +12,11 @@ const props = defineProps(['title'])
     <div class="header pt-8 sticky top-0 bg-white">
       <div
         class="inline-flex items-center cursor-pointer justify-between w-full"
+        @click="emit('back')"
       >
         <div class="flex items-center">
           <LeftOutlined class="text-xl" />
-          <h2 class="text-3xl ml-4 font-bold text-black">
-            {{ props.title }}
-          </h2>
+          <h2 class="text-3xl ml-4 font-bold text-black">{{ props.title }}</h2>
         </div>
         <div class="forward">
           <slot name="forward"></slot>
