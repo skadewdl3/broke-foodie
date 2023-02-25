@@ -13,7 +13,8 @@ const store = createStore({
     return {
       searchText: '',
       canteens: [],
-      searching: false
+      searching: false,
+      canteen: null
     }
   },
   mutations: {
@@ -28,6 +29,9 @@ const store = createStore({
     
     setSearching (state, s) {
       state.searching = s
+    },
+    setCanteen (state, c) {
+      state.canteen = c
     }
   }
 })

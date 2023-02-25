@@ -14,6 +14,7 @@
     "fastest-levenshtein": "^1.0.16",
     "stylus": "^0.59.0",
     "stylus-loader": "^7.1.0",
+    "validator": "^13.9.0",
     "vite-plugin-string-replace": "^1.1.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
