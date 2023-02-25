@@ -24,7 +24,15 @@ app.get('/search-canteens/:search', async (req, res) => {
   const docs = (await canteens.get()).docs
 
   const searchResults = closestMatch(docs, search);
-
+res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  // another common pattern
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
   res.json({
     searchResults
   })
@@ -35,7 +43,15 @@ app.get('/get-canteen/:id', async (req, res) => {
   const doc = await canteens.doc(id).get()
   console.log(id)
   console.log(doc.data())
-
+res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  // another common pattern
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
   if (!doc.exists) {
     res.json({ doc: null, error: 'Doc not found' })
   }
