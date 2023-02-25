@@ -1,7 +1,13 @@
 const { distance, closest } = require('fastest-levenshtein');
 const { fuzzy, search } = require('fast-fuzzy');
 
-const closestMatch = (data, query) => {
+const closestMatch = (rawData, query) => {
+
+  const data = rawData.map(doc => doc.data())
+  const ids = rawData.map(doc => doc.id)
+
+
+
   const canteens = data.map(canteen => canteen.name);
   const canteenDistances = canteens.map((name) => fuzzy(query, name))
 
@@ -19,7 +25,7 @@ const closestMatch = (data, query) => {
     return {
       name: canteens[i],
       score: 1.5*cur + 3*menuDistances[i],
-      index: i
+      id: ids[i]
     }
   }).sort((a, b) => b.score > a.score ? 1 : -1)
 

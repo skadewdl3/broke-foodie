@@ -21,13 +21,27 @@ app.get('/', (req, res) => {
 
 app.get('/search-canteens/:search', async (req, res) => {
   const search = req.params.search;
-  const docs = (await canteens.get()).docs.map(doc => doc.data())
+  const docs = (await canteens.get()).docs
 
   const searchResults = closestMatch(docs, search);
 
   res.json({
     searchResults
   })
+})
+
+app.get('/get-canteen/:id', async (req, res) => {
+  const id = req.params.id;
+  const doc = await canteens.doc(id).get()
+  console.log(id)
+  console.log(doc.data())
+
+  if (!doc.exists) {
+    res.json({ doc: null, error: 'Doc not found' })
+  }
+  else {
+    res.json({ doc: doc.data() })
+  }
 })
 
 app.listen(5000);
