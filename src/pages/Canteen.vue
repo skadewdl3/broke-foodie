@@ -23,41 +23,49 @@ const goToSearch = () => {
 onMounted(() => {
   console.log(canteen.value)
 })
+
+const goToMaps = link => {
+  const a = document.createElement('a')
+  a.href = link
+  a.target = '_blank'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+}
 </script>
 
 <template>
   <Container>
     <Content @back="goToSearch" :title="canteen ? canteen.name : ''">
+      <template #forward>
+        <div class="button-wrapper my-4">
+          <button
+            class="bg-orange-500 text-white rounded-md px-4 py-2 text-lg"
+            @click="goToMaps(canteen.location)"
+          >
+            Take me here
+          </button>
+        </div>
+      </template>
       <template #content>
-        <div class="canteen-grid grid w-full grid-cols-[1fr_2fr]">
-          <div class="canteen-info grid place-content-center">
-            <button
-              class="bg-orange-500 text-white rounded-md px-4 py-2 text-lg"
-            >
-              Take me here
-            </button>
+        <div class="canteen-grid w-full relative">
+          <div class="canteen-info flex items-center"></div>
+        </div>
+        <div
+          v-for="([name, price], index) in [...Object.entries(canteen.menu)]"
+          :key="index"
+          class="canteen-menu-item"
+        >
+          <div
+            class="canteen-menu-item-content px-4 py-2 flex items-center justify-between"
+          >
+            <span class="name">{{ name }}</span
+            ><span class="price">{{ price }}</span>
           </div>
-          <div class="canteen-menu w-full mt-4 grid">
-            <div
-              v-for="([name, price], index) in [
-                ...Object.entries(canteen.menu),
-                ...Object.entries(canteen.menu),
-              ]"
-              :key="index"
-              class="canteen-menu-item"
-            >
-              <div
-                class="canteen-menu-item-content px-4 py-2 flex items-center justify-between"
-              >
-                <span class="name">{{ name }}</span
-                ><span class="price">{{ price }}</span>
-              </div>
-              <div
-                v-if="index < Object.entries(canteen.menu).length - 1"
-                class="separator w-[97%] mx-auto h-0.5 bg-zinc-200 rounded-full"
-              ></div>
-            </div>
-          </div>
+          <div
+            v-if="index < Object.entries(canteen.menu).length - 1"
+            class="separator w-[97%] mx-auto h-0.5 bg-zinc-200 rounded-full"
+          ></div>
         </div>
       </template>
     </Content>
